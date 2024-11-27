@@ -24,7 +24,9 @@ function App() {
         break
 
       case 'number':
-        currentValue = JSON.parse(value)
+        console.log('test', value);
+        
+        currentValue = value ? JSON.parse(value) : ''
         break
 
       default:
