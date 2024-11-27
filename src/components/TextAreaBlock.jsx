@@ -1,4 +1,4 @@
-const TextArea = ({ id, value, onChange }) => {
+const TextAreaBlock = ({ id, value, onChange }) => {
   return (
     <textarea
       rows='2'
@@ -12,4 +12,4 @@ const TextArea = ({ id, value, onChange }) => {
   )
 }
 
-export default TextArea
+export default TextAreaBlock

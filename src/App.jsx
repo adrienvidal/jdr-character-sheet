@@ -5,9 +5,9 @@ import defaultState from './confs/defaultState'
 import Input from './components/Input'
 import Checkbox from './components/Checkbox'
 import Label from './components/Label'
-import TextArea from './components/textArea'
 import SuccessToast from './components/SuccessToast'
 import NumberInput from './components/Number'
+import TextAreaBlock from './components/TextAreaBlock'
 
 const style = {
   blockA: 'border-b-2 py-2'
@@ -197,7 +197,7 @@ function App() {
                       value={weapon.name}
                       onChange={handleChange}
                     />
-                    <TextArea
+                    <TextAreaBlock
                       id={`${config.weapons.id}-${index}-desc`}
                       value={weapon.desc}
                       onChange={handleChange}
@@ -241,7 +241,7 @@ function App() {
                       value={item.name}
                       onChange={handleChange}
                     />
-                    <TextArea
+                    <TextAreaBlock
                       id={`${config.inventary.id}-${index}-desc`}
                       value={item.desc}
                       onChange={handleChange}
