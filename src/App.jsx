@@ -111,11 +111,11 @@ function App() {
 
       <section className='flex flex-col'>
         {/* lifes */}
-        <div className='flex gap-3 border-b-2 pb-3 md:min-h-[80px]'>
+        <div className='flex flex-col md:flex-row gap-3 border-b-2 pb-3 md:min-h-[80px]'>
           {config.lifeCats.map((lifeCat, i) => {
             const { label, id } = lifeCat
             return (
-              <div key={i} className={`${i === 0 ? 'border-r-2 pr-2' : ''}`}>
+              <div key={i} className={`${i === 0 ? 'md:border-r-2 pr-2' : ''}`}>
                 <h2 className={style.titleH2}>{label}</h2>
                 <input
                   type='number'
