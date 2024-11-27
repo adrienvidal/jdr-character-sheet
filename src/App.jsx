@@ -8,6 +8,9 @@ import Label from './components/Label'
 import SuccessToast from './components/SuccessToast'
 import NumberInput from './components/Number'
 import TextAreaBlock from './components/TextAreaBlock'
+import BottomNav from './components/BottomNav'
+import Modal from './components/Modal'
+import RollDice from './components/RollDice'
 
 const style = {
   blockA: 'border-b-2 py-2'
@@ -17,6 +20,7 @@ function App() {
   const [formData, setFormData] = useState(defaultState)
   const [gameIsSaved, setGameIsSaved] = useState(false)
   const [displayAlert, setDisplayAlert] = useState(false)
+  const [displayModal, setDisplayModal] = useState(false)
 
   const handleChange = e => {
     const { name, value, type, checked } = e.target
@@ -103,6 +107,10 @@ function App() {
     }))
   }
 
+  const handleRoll = () => {
+    setDisplayModal(true)
+  }
+
   useEffect(() => {
     // get saved data
     const jdrSheet = localStorageManager.getItem('jdr-sheet')
@@ -119,7 +127,7 @@ function App() {
 
       <h1 className='text-xl uppercase mb-10'>{config.title}</h1>
 
-      <section className='flex flex-col'>
+      <section className='flex flex-col pb-20'>
         {/* lifes */}
         <div className='flex flex-col md:flex-row gap-3 border-b-2 pb-3 md:min-h-[80px]'>
           {config.lifeCats.map((lifeCat, i) => {
@@ -271,21 +279,24 @@ function App() {
           </div>
         )}
 
-        {/* ctas */}
-        <div className='flex justify-between mt-5'>
-          <input
-            type='submit'
-            value='Reset'
-            className='bg-gray-500 text-white px-4 py-2 rounded-md cursor-pointer'
-            onClick={handleReset}
-          />
-          <input
-            type='submit'
-            value={`${gameIsSaved ? 'Saved' : 'Save'}`}
-            className='bg-blue-400 text-white px-4 py-2 rounded-md cursor-pointer'
-            onClick={handleSave}
-          />
-        </div>
+        {displayModal && (
+          <Modal
+            title='Roll Dices'
+            onClose={() => {
+              setDisplayModal(false)
+            }}
+          >
+            <RollDice />
+          </Modal>
+        )}
+
+        {/* bottom nav */}
+        <BottomNav
+          handleReset={handleReset}
+          handleRoll={handleRoll}
+          handleSave={handleSave}
+          gameIsSaved={gameIsSaved}
+        />
       </section>
     </main>
   )
