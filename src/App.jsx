@@ -2,16 +2,21 @@ import { useEffect, useState } from 'react'
 import localStorageManager from './store/localStorage'
 import config from './confs/conf'
 import defaultState from './confs/defaultState'
+import Input from './components/Input'
+import Checkbox from './components/checkbox'
+import Label from './components/Label'
+import TextArea from './components/textArea'
+import SuccessToast from './components/SuccessToast'
+import NumberInput from './components/Number'
 
 const style = {
-  titleH2: 'text-xs uppercase font-bold',
-  blockA: 'flex justify-between gap-4 border-b-2 min-h-[80px] py-2',
-  input: 'border-2 text-sm'
+  blockA: 'border-b-2 py-2'
 }
 
 function App() {
   const [formData, setFormData] = useState(defaultState)
   const [gameIsSaved, setGameIsSaved] = useState(false)
+  const [displayAlert, setDisplayAlert] = useState(false)
 
   const handleChange = e => {
     const { name, value, type, checked } = e.target
@@ -24,8 +29,8 @@ function App() {
         break
 
       case 'number':
-        console.log('test', value);
-        
+        console.log('test', value)
+
         currentValue = value ? JSON.parse(value) : ''
         break
 
@@ -67,6 +72,7 @@ function App() {
   const handleSave = () => {
     localStorageManager.setItem('jdr-sheet', formData)
     setGameIsSaved(true)
+    setDisplayAlert(true)
   }
 
   const handleReset = () => {
@@ -109,6 +115,8 @@ function App() {
 
   return (
     <main className='p-5'>
+      {displayAlert && <SuccessToast setDisplayAlert={setDisplayAlert} />}
+
       <h1 className='text-xl uppercase mb-10'>{config.title}</h1>
 
       <section className='flex flex-col'>
@@ -117,16 +125,20 @@ function App() {
           {config.lifeCats.map((lifeCat, i) => {
             const { label, id } = lifeCat
             return (
-              <div key={i} className={`${i === 0 ? 'md:border-r-2 pr-2' : ''}`}>
-                <h2 className={style.titleH2}>{label}</h2>
-                <input
-                  type='number'
-                  name={id}
-                  id={id}
-                  value={formData[id]}
-                  className={style.input}
-                  onChange={handleChange}
-                />
+              <div
+                key={i}
+                className={`flex flex-col justify-center gap-3 ${
+                  i === 0 ? 'md:border-r-2 pr-2' : ''
+                }`}
+              >
+                <Label title={label} />
+                <div className='w-[80px]'>
+                  <NumberInput
+                    id={id}
+                    value={formData[id]}
+                    handleStateChange={handleChange}
+                  />
+                </div>
               </div>
             )
           })}
@@ -137,14 +149,12 @@ function App() {
           const { label, id } = traitsCat
           return (
             <div key={i} className={style.blockA}>
-              <h2 className={style.titleH2}>{label}</h2>
+              <Label title={label} />
               <div>
-                <input
+                <Input
                   type='number'
-                  name={id}
                   id={id}
                   value={formData[id]}
-                  className={style.input}
                   onChange={handleChange}
                 />
               </div>
@@ -155,18 +165,18 @@ function App() {
         {/* saves */}
         {config.save && (
           <div className={style.blockA}>
-            <h2 className={style.titleH2}>{config.save.label}</h2>
+            <Label title={config.save.label} />
+
             <div className='flex gap-3'>
               {Object.entries(formData.save).map(([key, value]) => (
-                <input
-                  key={key}
-                  type='checkbox'
-                  name={key}
-                  id={key}
-                  checked={value}
-                  className={style.input}
-                  onChange={handleChange}
-                />
+                <div key={key}>
+                  <Checkbox
+                    type='checkbox'
+                    id={key}
+                    checked={value}
+                    onChange={handleChange}
+                  />
+                </div>
               ))}
             </div>
           </div>
@@ -175,25 +185,21 @@ function App() {
         {/* weapons */}
         {config.weapons && (
           <div className='relative py-2'>
-            <h2 className={style.titleH2}>{config.weapons.label}</h2>
+            <Label title={config.weapons.label} />
+
             {formData.weapons.map((weapon, index) => {
               return (
                 <div key={index} className='flex gap-2 mt-5'>
-                  <div className='md:flex gap-2'>
-                    <input
+                  <div>
+                    <Input
                       type='text'
-                      name={`${config.weapons.id}-${index}-name`}
                       id={`${config.weapons.id}-${index}-name`}
                       value={weapon.name}
-                      className={style.input}
                       onChange={handleChange}
                     />
-                    <input
-                      type='text'
-                      name={`${config.weapons.id}-${index}-desc`}
+                    <TextArea
                       id={`${config.weapons.id}-${index}-desc`}
                       value={weapon.desc}
-                      className={style.input}
                       onChange={handleChange}
                     />
                   </div>
@@ -224,25 +230,20 @@ function App() {
         {/* inventary */}
         {config.inventary && (
           <div className='relative py-2'>
-            <h2 className={style.titleH2}>{config.inventary.label}</h2>
+            <Label title={config.inventary.label} />
             {formData.inventary.map((item, index) => {
               return (
                 <div key={index} className='flex gap-2 mt-5'>
-                  <div className='md:flex gap-2'>
-                    <input
+                  <div>
+                    <Input
                       type='text'
-                      name={`${config.inventary.id}-${index}-name`}
                       id={`${config.inventary.id}-${index}-name`}
                       value={item.name}
-                      className={style.input}
                       onChange={handleChange}
                     />
-                    <input
-                      type='text'
-                      name={`${config.inventary.id}-${index}-desc`}
+                    <TextArea
                       id={`${config.inventary.id}-${index}-desc`}
                       value={item.desc}
-                      className={style.input}
                       onChange={handleChange}
                     />
                   </div>
