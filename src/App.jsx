@@ -4,8 +4,9 @@ import config from './confs/conf'
 import defaultState from './confs/defaultState'
 
 const style = {
-  titleH2: 'uppercase font-bold',
-  blockA: 'flex justify-between gap-4 border-b-2 min-h-[80px] py-2'
+  titleH2: 'text-xs uppercase font-bold',
+  blockA: 'flex justify-between gap-4 border-b-2 min-h-[80px] py-2',
+  input: 'border-2 text-sm'
 }
 
 function App() {
@@ -110,7 +111,7 @@ function App() {
 
       <section className='flex flex-col'>
         {/* lifes */}
-        <div className='flex gap-3 border-b-2 min-h-[80px]'>
+        <div className='flex gap-3 border-b-2 pb-3 md:min-h-[80px]'>
           {config.lifeCats.map((lifeCat, i) => {
             const { label, id } = lifeCat
             return (
@@ -121,7 +122,7 @@ function App() {
                   name={id}
                   id={id}
                   value={formData[id]}
-                  className='border-2'
+                  className={style.input}
                   onChange={handleChange}
                 />
               </div>
@@ -141,7 +142,7 @@ function App() {
                   name={id}
                   id={id}
                   value={formData[id]}
-                  className='border-2'
+                  className={style.input}
                   onChange={handleChange}
                 />
               </div>
@@ -153,7 +154,7 @@ function App() {
         {config.save && (
           <div className={style.blockA}>
             <h2 className={style.titleH2}>{config.save.label}</h2>
-            <div>
+            <div className='flex gap-3'>
               {Object.entries(formData.save).map(([key, value]) => (
                 <input
                   key={key}
@@ -161,7 +162,7 @@ function App() {
                   name={key}
                   id={key}
                   checked={value}
-                  className='border-2'
+                  className={style.input}
                   onChange={handleChange}
                 />
               ))}
@@ -175,23 +176,25 @@ function App() {
             <h2 className={style.titleH2}>{config.weapons.label}</h2>
             {formData.weapons.map((weapon, index) => {
               return (
-                <div key={index} className='flex gap-2'>
-                  <input
-                    type='text'
-                    name={`${config.weapons.id}-${index}-name`}
-                    id={`${config.weapons.id}-${index}-name`}
-                    value={weapon.name}
-                    className='border-2'
-                    onChange={handleChange}
-                  />
-                  <input
-                    type='text'
-                    name={`${config.weapons.id}-${index}-desc`}
-                    id={`${config.weapons.id}-${index}-desc`}
-                    value={weapon.desc}
-                    className='border-2'
-                    onChange={handleChange}
-                  />
+                <div key={index} className='flex gap-2 mt-5'>
+                  <div className='md:flex gap-2'>
+                    <input
+                      type='text'
+                      name={`${config.weapons.id}-${index}-name`}
+                      id={`${config.weapons.id}-${index}-name`}
+                      value={weapon.name}
+                      className={style.input}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type='text'
+                      name={`${config.weapons.id}-${index}-desc`}
+                      id={`${config.weapons.id}-${index}-desc`}
+                      value={weapon.desc}
+                      className={style.input}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className='flex justify-center items-center'>
                     <input
                       type='submit'
@@ -222,23 +225,25 @@ function App() {
             <h2 className={style.titleH2}>{config.inventary.label}</h2>
             {formData.inventary.map((item, index) => {
               return (
-                <div key={index} className='flex gap-2'>
-                  <input
-                    type='text'
-                    name={`${config.inventary.id}-${index}-name`}
-                    id={`${config.inventary.id}-${index}-name`}
-                    value={item.name}
-                    className='border-2'
-                    onChange={handleChange}
-                  />
-                  <input
-                    type='text'
-                    name={`${config.inventary.id}-${index}-desc`}
-                    id={`${config.inventary.id}-${index}-desc`}
-                    value={item.desc}
-                    className='border-2'
-                    onChange={handleChange}
-                  />
+                <div key={index} className='flex gap-2 mt-5'>
+                  <div className='md:flex gap-2'>
+                    <input
+                      type='text'
+                      name={`${config.inventary.id}-${index}-name`}
+                      id={`${config.inventary.id}-${index}-name`}
+                      value={item.name}
+                      className={style.input}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type='text'
+                      name={`${config.inventary.id}-${index}-desc`}
+                      id={`${config.inventary.id}-${index}-desc`}
+                      value={item.desc}
+                      className={style.input}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <div className='flex justify-center items-center'>
                     <input
                       type='submit'
