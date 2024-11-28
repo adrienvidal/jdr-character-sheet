@@ -15,8 +15,8 @@ export default function RollDice() {
 
   return (
     <div className='flex items-center justify-center'>
-      {Object.entries(result).map(([key, value], i) => (
-        <div className='flex flex-col items-center justify-center p-5 space-y-4'>
+      {Object.entries(result).map(([key, value]) => (
+        <div key={key} className='flex flex-col items-center justify-center p-5 space-y-4'>
           {/* Dice Result */}
           <div
             className={`w-20 h-20 flex items-center justify-center text-white font-bold text-3xl rounded-lg

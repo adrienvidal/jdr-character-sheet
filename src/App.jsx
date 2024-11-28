@@ -11,6 +11,7 @@ import TextAreaBlock from './components/TextAreaBlock'
 import BottomNav from './components/BottomNav'
 import Modal from './components/Modal'
 import RollDice from './components/RollDice'
+import ButtonAdd from './components/Buttons'
 
 const style = {
   blockA: 'border-b-2 py-2'
@@ -159,11 +160,10 @@ function App() {
             <div key={i} className={style.blockA}>
               <Label title={label} />
               <div>
-                <Input
-                  type='number'
+                <NumberInput
                   id={id}
                   value={formData[id]}
-                  onChange={handleChange}
+                  handleStateChange={handleChange}
                 />
               </div>
             </div>
@@ -195,42 +195,39 @@ function App() {
           <div className='relative py-2'>
             <Label title={config.weapons.label} />
 
-            {formData.weapons.map((weapon, index) => {
-              return (
-                <div key={index} className='flex gap-2 mt-5'>
-                  <div>
-                    <Input
-                      type='text'
-                      id={`${config.weapons.id}-${index}-name`}
-                      value={weapon.name}
-                      onChange={handleChange}
-                    />
-                    <TextAreaBlock
-                      id={`${config.weapons.id}-${index}-desc`}
-                      value={weapon.desc}
-                      onChange={handleChange}
-                    />
+            <div className='flex flex-col gap-5'>
+              {formData.weapons.map((weapon, index) => {
+                return (
+                  <div key={index} className='flex gap-2'>
+                    <div>
+                      <Input
+                        type='text'
+                        id={`${config.weapons.id}-${index}-name`}
+                        value={weapon.name}
+                        onChange={handleChange}
+                      />
+                      <TextAreaBlock
+                        id={`${config.weapons.id}-${index}-desc`}
+                        value={weapon.desc}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className='flex justify-center items-center'>
+                      <input
+                        type='submit'
+                        value='-'
+                        className='bg-red-400 text-white px-2 rounded-full cursor-pointer'
+                        onClick={() => {
+                          handleListRemove(index, 'weapons')
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className='flex justify-center items-center'>
-                    <input
-                      type='submit'
-                      value='-'
-                      className='bg-red-400 text-white px-2 rounded-full cursor-pointer'
-                      onClick={() => {
-                        handleListRemove(index, 'weapons')
-                      }}
-                    />
-                  </div>
-                </div>
-              )
-            })}
-            <div className='absolute right-0 top-2'>
-              <input
-                type='submit'
-                value='+'
-                className='bg-blue-400 text-white px-3 p-1 rounded-full cursor-pointer'
-                onClick={() => handleListAdd('weapons')}
-              />
+                )
+              })}
+            </div>
+            <div className=''>
+              <ButtonAdd handleClick={() => handleListAdd('weapons')} />
             </div>
           </div>
         )}
@@ -239,42 +236,40 @@ function App() {
         {config.inventary && (
           <div className='relative py-2'>
             <Label title={config.inventary.label} />
-            {formData.inventary.map((item, index) => {
-              return (
-                <div key={index} className='flex gap-2 mt-5'>
-                  <div>
-                    <Input
-                      type='text'
-                      id={`${config.inventary.id}-${index}-name`}
-                      value={item.name}
-                      onChange={handleChange}
-                    />
-                    <TextAreaBlock
-                      id={`${config.inventary.id}-${index}-desc`}
-                      value={item.desc}
-                      onChange={handleChange}
-                    />
+
+            <div className='flex flex-col gap-5'>
+              {formData.inventary.map((item, index) => {
+                return (
+                  <div key={index} className='flex gap-2'>
+                    <div>
+                      <Input
+                        type='text'
+                        id={`${config.inventary.id}-${index}-name`}
+                        value={item.name}
+                        onChange={handleChange}
+                      />
+                      <TextAreaBlock
+                        id={`${config.inventary.id}-${index}-desc`}
+                        value={item.desc}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className='flex justify-center items-center'>
+                      <input
+                        type='submit'
+                        value='-'
+                        className='bg-red-400 text-white px-2 rounded-full cursor-pointer'
+                        onClick={() => {
+                          handleListRemove(index, 'inventary')
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className='flex justify-center items-center'>
-                    <input
-                      type='submit'
-                      value='-'
-                      className='bg-red-400 text-white px-2 rounded-full cursor-pointer'
-                      onClick={() => {
-                        handleListRemove(index, 'inventary')
-                      }}
-                    />
-                  </div>
-                </div>
-              )
-            })}
-            <div className='absolute right-0 top-2'>
-              <input
-                type='submit'
-                value='+'
-                className='bg-blue-400 text-white px-3 p-1 rounded-full cursor-pointer'
-                onClick={() => handleListAdd('inventary')}
-              />
+                )
+              })}
+            </div>
+            <div className=''>
+              <ButtonAdd handleClick={() => handleListAdd('inventary')} />
             </div>
           </div>
         )}
