@@ -1,9 +1,9 @@
 const defaultState = {
-  maxLife: 100,
-  currentLife: 50,
-  dex: 10,
-  luck: 5,
-  skill: 8,
+  maxLife: 20,
+  currentLife: 20,
+  dex: 0,
+  luck: 0,
+  skill: '',
   save: {
     'save-0': false,
     'save-1': false,
@@ -14,20 +14,12 @@ const defaultState = {
       name: 'Epée',
       desc: 'Magique'
     },
-    {
-      name: 'Couteau',
-      desc: 'Coupant'
-    }
   ],
   inventary: [
     {
       name: 'Potion',
       desc: 'Soin'
     },
-    {
-      name: 'Cape',
-      desc: 'Armure'
-    }
   ]
 }
 

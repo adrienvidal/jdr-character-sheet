@@ -5,9 +5,9 @@ const config = {
     { label: 'Points de vie actuels', id: 'currentLife' }
   ],
   traitsCats: [
-    { label: 'Dextérité', id: 'dex' },
-    { label: 'Chance', id: 'luck' },
-    { label: 'Talent', id: 'skill' }
+    { label: 'Dextérité', id: 'dex', type: 'number' },
+    { label: 'Chance', id: 'luck', type: 'number' },
+    { label: 'Talent', id: 'skill', type: 'text' }
   ],
   save: { label: 'Sauvegarde', id: 'save' },
   weapons: { label: 'Armes et spécificités', id: 'weapons' },

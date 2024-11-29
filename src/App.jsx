@@ -155,16 +155,26 @@ function App() {
 
         {/* traits */}
         {config.traitsCats.map((traitsCat, i) => {
-          const { label, id } = traitsCat
+          const { label, id, type } = traitsCat
           return (
             <div key={i} className={style.blockA}>
               <Label title={label} />
               <div>
-                <NumberInput
-                  id={id}
-                  value={formData[id]}
-                  handleStateChange={handleChange}
-                />
+                {type === 'number' && (
+                  <NumberInput
+                    id={id}
+                    value={formData[id]}
+                    handleStateChange={handleChange}
+                  />
+                )}
+                {type === 'text' && (
+                  <Input
+                    type='text'
+                    id={id}
+                    value={formData[id]}
+                    onChange={handleChange}
+                  />
+                )}
               </div>
             </div>
           )
