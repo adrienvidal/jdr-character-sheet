@@ -13,15 +13,12 @@ import Modal from './components/Modal'
 import RollDice from './components/RollDice'
 import ButtonAdd from './components/Buttons'
 
-const style = {
-  blockA: 'border-b-2 py-2'
-}
-
 function App() {
   const [formData, setFormData] = useState(defaultState)
   const [gameIsSaved, setGameIsSaved] = useState(false)
   const [displayAlert, setDisplayAlert] = useState(false)
-  const [displayModal, setDisplayModal] = useState(false)
+  const [displayModalDices, setDisplayModalDices] = useState(false)
+  const [displayModalReset, setDisplayModalReset] = useState(false)
 
   const handleChange = e => {
     const { name, value, type, checked } = e.target
@@ -109,7 +106,7 @@ function App() {
   }
 
   const handleRoll = () => {
-    setDisplayModal(true)
+    setDisplayModalDices(true)
   }
 
   useEffect(() => {
@@ -157,7 +154,7 @@ function App() {
         {config.traitsCats.map((traitsCat, i) => {
           const { label, id, type } = traitsCat
           return (
-            <div key={i} className={style.blockA}>
+            <div key={i} className='border-b-2 py-2'>
               <Label title={label} />
               <div>
                 {type === 'number' && (
@@ -182,7 +179,7 @@ function App() {
 
         {/* saves */}
         {config.save && (
-          <div className={style.blockA}>
+          <div className='border-b-2 py-2'>
             <Label title={config.save.label} />
 
             <div className='flex gap-3'>
@@ -284,20 +281,33 @@ function App() {
           </div>
         )}
 
-        {displayModal && (
+        {displayModalDices && (
           <Modal
             title='Roll Dices'
             onClose={() => {
-              setDisplayModal(false)
+              setDisplayModalDices(false)
             }}
           >
             <RollDice />
           </Modal>
         )}
 
+        {displayModalReset && (
+          <Modal
+            title='Reset ?'
+            onClose={() => {
+              setDisplayModalReset(false)
+            }}
+            onYes={() => {
+              handleReset()
+              setDisplayModalReset(false)
+            }}
+          ></Modal>
+        )}
+
         {/* bottom nav */}
         <BottomNav
-          handleReset={handleReset}
+          setDisplayModalReset={setDisplayModalReset}
           handleRoll={handleRoll}
           handleSave={handleSave}
           gameIsSaved={gameIsSaved}

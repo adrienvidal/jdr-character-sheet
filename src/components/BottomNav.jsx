@@ -1,13 +1,18 @@
 import React from 'react'
 
-export default function BottomNav({ handleReset, handleRoll, handleSave, gameIsSaved }) {
+export default function BottomNav({
+  setDisplayModalReset,
+  handleRoll,
+  handleSave,
+  gameIsSaved
+}) {
   return (
     <div className='flex justify-between bg-white fixed bottom-0 left-0 right-0 p-3'>
       <input
         type='submit'
         value='Reset'
         className='bg-gray-500 text-white px-4 py-2 rounded-md cursor-pointer'
-        onClick={handleReset}
+        onClick={() => {setDisplayModalReset(true)}}
       />
       <input
         type='submit'
