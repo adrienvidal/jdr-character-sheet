@@ -35,7 +35,7 @@ export default function RollDice() {
   return (
     <div>
       <div className='flex items-center gap-3'>
-        <label className='block text-sm uppercase font-bold'>In fight</label>
+        <label className='block text-sm uppercase font-bold'>In fight (normal)</label>
         <Checkbox
           type='checkbox'
           id='inFight'
