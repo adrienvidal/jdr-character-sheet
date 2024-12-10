@@ -6,19 +6,23 @@ export default function RollDice() {
     'dice-1': null,
     'dice-2': null
   })
-  const [inFight, setInFight] = useState(false)
+  const [rollConf, setRollConf] = useState({
+    dexterity: false,
+    ennemis: false
+  })
 
   const rollDice = id => {
+    const { dexterity, ennemis } = rollConf
     const randomNumber = Math.floor(Math.random() * 6) + 1
     const randomNumber2 = Math.floor(Math.random() * 6) + 1
 
     let finalNumber
-    if (inFight) {
-      finalNumber = randomNumber
-    } else if (randomNumber >= randomNumber2) {
+    if (dexterity) {
+      finalNumber = randomNumber <= randomNumber2 ? randomNumber : randomNumber2
+    } else if (ennemis) {
       finalNumber = randomNumber
     } else {
-      finalNumber = randomNumber2
+      finalNumber = randomNumber >= randomNumber2 ? randomNumber : randomNumber2
     }
 
     setResult(prev => {
@@ -27,21 +31,32 @@ export default function RollDice() {
   }
 
   const handleCheckboxChange = e => {
-    const { checked } = e.target
+    const { id, checked } = e.target
 
-    setInFight(checked)
+    setRollConf(old => {
+      return { ...old, [id]: checked }
+    })
   }
 
   return (
     <div>
-      <div className='flex items-center gap-3'>
-        <label className='block text-sm uppercase font-bold'>In fight (normal)</label>
-        <Checkbox
-          type='checkbox'
-          id='inFight'
-          checked={inFight}
-          onChange={handleCheckboxChange}
-        />
+      <div className='flex justify-between items-center gap-3'>
+        <div className='flex items-center gap-3'>
+        <label className='block text-sm uppercase font-bold'>Dexterité</label>
+          <Checkbox
+            id='dexterity'
+            checked={rollConf.dexterity}
+            onChange={handleCheckboxChange}
+          />
+        </div>
+        <div className='flex items-center gap-3'>
+          <label className='block text-sm uppercase font-bold'>Ennemis</label>
+          <Checkbox
+            id='ennemis'
+            checked={rollConf.ennemis}
+            onChange={handleCheckboxChange}
+          />
+        </div>
       </div>
 
       <div className='flex items-center justify-center'>
